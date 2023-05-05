@@ -36,7 +36,7 @@ export async function findDependencies(paths, options = {}) {
 
     imports?.forEach(i => {
       /** Skip built-in modules like fs, path, etc */
-      if(builtinModules.includes(i.n)) return;
+      if(builtinModules.includes(i.n) || isBareModuleSpecifier(i.n)) return;
       try {
         const pathToDependency = require.resolve(i.n, {paths: [
           /** Current project's node_modules */
